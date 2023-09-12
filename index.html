@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A/B Testing</title>
+  
+  </head>
+  <body>
+    <div id="main-container">
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/homepagetest.html">About</a></li>
+          <!-- <li><a href="#/contact">Contact</a></li> -->
+        </ul>
+      </nav>
+      <p>Hello QF Developer</p>
+    </div>
+    <script>
+      // Function to retrieve the value of a cookie by name
+      function setCookie(cookieName, cookieValue, minutesToExpire) {
+        const expirationDate = new Date();
+        expirationDate.setTime(
+          expirationDate.getTime() + minutesToExpire * 60 * 1000
+        ); // Convert minutes to milliseconds
+        const cookieString = `${cookieName}=${cookieValue}; expires=${expirationDate.toUTCString()}; path=/`;
+        document.cookie = cookieString;
+      }
+
+      // Set the 'homepageredirect' cookie to '1' with an expiration of 25 minutes
+      //This function set cookie 1 
+      // setCookie("homepageredirect", "1", 25);
+
+      function getCookieValue(cookieName) {
+        const cookies = document.cookie.split("; ");
+        for (const cookie of cookies) {
+          const [name, value] = cookie.split("=");
+          if (name === cookieName) {
+            return value;
+          }
+        }
+        return null;
+      }
+
+      // Check if the 'homepageredirect' cookie is set to '1'
+      const homepageredirectCookie = getCookieValue("homepageredirect");
+      // Check if the current page is the homepage
+      if (window.location.pathname === "/" && homepageredirectCookie == "1") {
+        // Redirect to the A/B testing homepage
+        window.location.href = "/homepagetest.html";
+      }
+    </script>
+  </body>
+</html>
